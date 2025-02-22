@@ -1,0 +1,35 @@
+paths:
+  train_npz_file_dir: "data/example_dataset/dataset/train.npz"
+  val_npz_file_dir: "data/example_dataset/dataset/val.npz"
+  test_npz_file_dir: "data/example_dataset/dataset/test.npz"
+  checkpoint_dir: "checkpoints"
+
+training:
+  train_batch_size: 4
+  val_batch_size: 4
+  lr: 0.0001
+  num_epochs: 100
+  checkpoint_save_interval: 5
+
+model:
+  lambda_init: 1.0
+  num_iter: 5
+  dropout_rate: 0.1
+  n_channels: 2
+
+  residual_block_kwargs:
+    num_filter_list: [128, 128, 128, 128, 128, 2]
+    kernel_size_list: [3, 3, 1, 1, 1, 1]
+    stride_list: [1, 1, 1, 1, 1, 1]
+    padding_list: [1, 1, 0, 0, 0, 0]
+    in_channel: 2
+    p: 0.1
+
+  log_aleatoric_variance_network:
+    p: 0.1
+    num_levels: 4
+    base_channels: 64
+
+test:
+  test_checkpoint_path: "checkpoints/checkpoint_epoch_30.pth"
+  number_of_mc_dropout_passes: 100
